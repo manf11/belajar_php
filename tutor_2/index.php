@@ -19,7 +19,7 @@
 // var_dump(1>5);
 // identitas ===,!==
 // var_dump(1 === "1");
-// logika &&,||,!
+// logika && dan,|| or,! bukan
 $x=10;
 var_dump($x<20 && $x %2 == 0);
 ?>
