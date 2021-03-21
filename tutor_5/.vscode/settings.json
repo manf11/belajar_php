@@ -1,0 +1,12 @@
+{
+    "json.schemas": [
+
+    ],
+    "editor.fontFamily": "'Cascadia Code'",
+    "editor.fontSize": 20,
+    "auto-rename-tag.activationOnLanguage": [
+
+        "*"
+    ],
+    "editor.fontLigatures": true
+}
