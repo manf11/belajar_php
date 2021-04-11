@@ -47,8 +47,9 @@ if (ubah($_POST) > 0){
 <body>
     <h1>ubah data mahasiswa</h1>
 
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $mhs["id"]; ?>">
+        <input type="hidden" name="gambarlama" value="<?= $mhs["gambar"]; ?>">
         <ul>
             <li>
                 <label for="nama">nama :</label>
@@ -68,7 +69,8 @@ if (ubah($_POST) > 0){
             </li>
             <li>
                 <label for="gambar">gambar :</label>
-                <input type="text" name="gambar" id="gambar" value="<?= $mhs["gambar"]; ?>">
+                <img src="img/<?= $mhs['gambar']; ?>"><br>
+                <input type="file" name="gambar" id="gambar">
             </li>
             <li>
                 <button type="submit" name="submit">ubah data</button>

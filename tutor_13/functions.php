@@ -36,7 +36,7 @@ function upload(){
     $namafile = $_FILES['gambar']['name'];
     $ukuranfile = $_FILES['gambar']['size'];
     $error = $_FILES['gambar']['error'];
-    $tmpnama = $_FILES['gambar']['tmpnama'];
+    $tmpname = $_FILES['gambar']['tmp_name'];
 
     //cek gambar upload
     if ($error  === 4){
@@ -46,14 +46,27 @@ function upload(){
         return false;
     }
     $ekstensifilevalid = ['jpg','png','jpeg'];
-    $ekstensifile = explode('.',$namafile);
-    $ekstensifile = strtolower (end($ekstensifilevalid));
-    if(!in_array($ekstensifile,$ekstensifilevalid)){
+    $ekstensigambar = explode('.',$namafile);
+    $ekstensigambar = strtolower (end($ekstensigambar));
+    if(!in_array($ekstensigambar,$ekstensifilevalid)){
         echo"<script>
                 alert('bukan gambar');
             </script>";
         return false;
     }
+
+    if($ukuranfile > 1000000) {
+        echo "<script>
+                alert ('ukuran gambar terlalu besar');
+             </script>";
+             return false;
+    }
+    //nama gambar baru
+    $namafilebaru = uniqid();
+    $namafilebaru .='.';
+    $namafilebaru .= $ekstensigambar;
+    move_uploaded_file($tmpname,'img/' .$namafilebaru);
+    return $namafilebaru;
 }
 
 function hapus ($id){
@@ -71,7 +84,13 @@ function ubah ($data){
     $npm = htmlspecialchars ($data["npm"]);
     $email = htmlspecialchars ($data["email"]);
     $jurusan = htmlspecialchars ($data["jurusan"]);
-    $gambar = htmlspecialchars ($data["gambar"]);
+    $gambarlama = htmlspecialchars($data["gambarlama"]);
+    //cek apakah user pilih gambar baru
+    if ($_FILES['gambar']['error']===4){
+        $gambar = $gambarlama;
+    }else{
+        $gambar = upload();
+    }
 
         //query update data
         $query = "UPDATE mahasiswa SET
